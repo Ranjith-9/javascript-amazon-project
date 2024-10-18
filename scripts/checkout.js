@@ -1,5 +1,6 @@
 import {products} from "../data/products.js";
 /* import {cart,addToCart} from "../data/cart.js"; */
+import { formatCurrency } from "./utils/money.js";
 let cart = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
@@ -49,7 +50,7 @@ let cart = [
   }
 ];
 let carthtml ='';
-
+let i= 0;
 cart.forEach((cartItem) => {
     const cartId = cartItem.id;
     let matchingProduct;
@@ -57,7 +58,7 @@ cart.forEach((cartItem) => {
         if(productItem.id === cartId) {
             matchingProduct = productItem
         }
-    })
+    })   
     carthtml += `<div class="cart-item-container">
             <div class="delivery-date">
               Delivery date: Tuesday, June 21
@@ -72,7 +73,7 @@ cart.forEach((cartItem) => {
                   ${matchingProduct.name}
                 </div>
                 <div class="product-price">
-                  ${((matchingProduct.priceCents)/100).toFixed(2)}
+                  ${formatCurrency(matchingProduct.priceCents)}
                 </div>
                 <div class="product-quantity">
                   <span>
@@ -94,7 +95,7 @@ cart.forEach((cartItem) => {
                 <div class="delivery-option">
                   <input type="radio" checked
                     class="delivery-option-input"
-                    name="delivery-option-1">
+                    name="delivery-option-${i}">
                   <div>
                     <div class="delivery-option-date">
                       Tuesday, June 21
@@ -107,7 +108,7 @@ cart.forEach((cartItem) => {
                 <div class="delivery-option">
                   <input type="radio"
                     class="delivery-option-input"
-                    name="delivery-option-1">
+                    name="delivery-option-${i}">
                   <div>
                     <div class="delivery-option-date">
                       Wednesday, June 15
@@ -120,7 +121,7 @@ cart.forEach((cartItem) => {
                 <div class="delivery-option">
                   <input type="radio"
                     class="delivery-option-input"
-                    name="delivery-option-1">
+                    name="delivery-option-${i}">
                   <div>
                     <div class="delivery-option-date">
                       Monday, June 13
@@ -133,7 +134,7 @@ cart.forEach((cartItem) => {
               </div>
             </div>
           </div>`;
-
+    i=i+1;
 })
 
 document.querySelector('.js-cart-section').innerHTML = carthtml;
