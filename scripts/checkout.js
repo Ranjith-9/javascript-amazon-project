@@ -60,7 +60,7 @@ function renderOrderSummary() {
                   </div>
                 </div>
 
-                <div class="delivery-options js-delivery-option">
+                <div class="delivery-options">
                   <div class="delivery-options-title">
                     Choose a delivery option:
                   </div>
