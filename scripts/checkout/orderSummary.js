@@ -1,27 +1,20 @@
-import {products} from "../../data/products.js";
+import {products, getProduct} from "../../data/products.js";
 import { formatCurrency } from "../utils/money.js";
 import { cart,removeFromCart,updateDeliveryOption } from "../../data/cart.js";
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
-import { deliveryOptions } from "../../data/deliveryOptions.js";
+import { deliveryOptions,getDeliveryOption } from "../../data/deliveryOptions.js";
+import { renderPaymentSummary } from "./paymentSummary.js";
 
 export function renderOrderSummary() {
 
     let carthtml ='';
   cart.forEach((cartItem) => {
       const cartId = cartItem.id;
-      let matchingProduct;
-      products.forEach((productItem) => {
-          if(productItem.id === cartId) {
-              matchingProduct = productItem
-          }
-      }) 
-    let deliveryOption;
-    const deliveryOptionsId = cartItem.deliveryOptions;
-    deliveryOptions.forEach((option) => {
-    if(option.id === deliveryOptionsId) {
-      deliveryOption = option;
-    }
-  })
+      const matchingProduct = getProduct(cartId);
+      
+      const deliveryOptionsId = cartItem.deliveryOptions;
+      
+      let deliveryOption = getDeliveryOption(deliveryOptionsId);
 
   const today = dayjs();
   const deliveryDate = today.add(
@@ -129,6 +122,7 @@ document.querySelectorAll('.js-delivery-option').forEach((element) => {
     const {productId,deliveryOptionId} = element.dataset;
     updateDeliveryOption(productId, deliveryOptionId);
     renderOrderSummary();
+    renderPaymentSummary();
   });
 });
 
