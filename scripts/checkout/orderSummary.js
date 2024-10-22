@@ -8,13 +8,14 @@ import { renderPaymentSummary } from "./paymentSummary.js";
 export function renderOrderSummary() {
 
     let carthtml ='';
-  cart.forEach((cartItem) => {
-      const cartId = cartItem.id;
-      const matchingProduct = getProduct(cartId);
+    cart.forEach((cartItem) => {
+    const cartId = cartItem.id;
+
+    const matchingProduct = getProduct(cartId);
       
-      const deliveryOptionsId = cartItem.deliveryOptions;
-      
-      let deliveryOption = getDeliveryOption(deliveryOptionsId);
+    const deliveryOptionsId = cartItem.deliveryOptions;
+
+    let deliveryOption = getDeliveryOption(deliveryOptionsId);
 
   const today = dayjs();
   const deliveryDate = today.add(
