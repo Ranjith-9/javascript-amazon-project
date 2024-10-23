@@ -17,14 +17,15 @@ export function renderOrderSummary() {
 
     let deliveryOption = getDeliveryOption(deliveryOptionsId);
 
-  const today = dayjs();
-  const deliveryDate = today.add(
-    deliveryOption.deliveryDays,
-    'days'
-  );
-  const dateString = deliveryDate.format('dddd, MMMM D');
+    const today = dayjs();
+    const deliveryDate = today.add(
+      deliveryOption.deliveryDays,
+      'days'
+      );
+    const dateString = deliveryDate.format('dddd, MMMM D');
 
       carthtml += `<div class="cart-item-container 
+          js-item-container
           js-cart-item-container-${matchingProduct.id}">
               <div class="delivery-date">
                 Delivery date: ${dateString}

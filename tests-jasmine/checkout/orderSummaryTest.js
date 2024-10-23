@@ -2,11 +2,16 @@ import { renderOrderSummary } from "../../scripts/checkout/orderSummary.js";
 import { loadFromStorage } from "../../data/cart.js";
 
 describe('test suite: renderOrderSummary', () => {
-    it('displays the cart', () => {
+    
+    let productId1 = 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6';
+    
+    beforeEach(() => {
         document.querySelector('.js-test-container').innerHTML = `
         <div class = "js-cart-section"></div>
+        <div class = "js-payment-summary"></div>
         `;
-
+        spyOn(localStorage,'setItem');
+       
         spyOn(localStorage, 'getItem').and.callFake(() => {
             return JSON.stringify([{
                 id: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
@@ -18,8 +23,28 @@ describe('test suite: renderOrderSummary', () => {
                 deliveryOptions: '3'
             }]);
         });
+       
         loadFromStorage();
-
-        renderOrderSummary();
+        renderOrderSummary();  
     });
+ 
+
+    it('displays the cart', () => {
+        expect(
+            document.querySelectorAll('.js-item-container').length
+        ).toEqual(2);
+       
+        expect(
+            document.querySelector(`.js-cart-item-container-${productId1}`)
+        ).not.toEqual(null)
+    });
+
+    it ('removes items from cart',() => {
+ 
+        document.querySelector('.js-delete-link').click();
+
+        expect(
+            document.querySelectorAll('.js-item-container').length
+        ).toEqual(1);
+    })
 });
