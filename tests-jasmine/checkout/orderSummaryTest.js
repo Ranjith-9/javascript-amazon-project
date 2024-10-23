@@ -27,7 +27,10 @@ describe('test suite: renderOrderSummary', () => {
         loadFromStorage();
         renderOrderSummary();  
     });
- 
+    
+    afterEach(() => {
+        document.querySelector('.js-test-container').innerHTML = ''
+    })
 
     it('displays the cart', () => {
         expect(
